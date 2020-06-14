@@ -22,21 +22,27 @@ module.exports = (capabilities)=>{
             });
           });
         break;
+
       case 'Basic':
-
         [user, pass] = base64.decode(inputType).split(':');
-        users.valid(user, pass).then((validUser) => {
-          users.can(capabilities, {capabilities:validUser.role}).then(booleanVal=>{
+        // console.log(user, pass);
+        users.valid(user, pass)
+          .then((validUser) => {
             // console.log(validUser);//user obj id, name, 
-            if(booleanVal){
-              let token = users.token(validUser);
-              res.cookie('token',token,{maxAge:900000});
-              req.token = token;
-              next();
-            }else{next('access denied');}
-
+            if(validUser){
+              users.can(capabilities, {capabilities:validUser.role})
+                .then(booleanVal=>{
+                  if(booleanVal){
+                    console.log(booleanVal);
+                    let token = users.token(validUser);
+                    res.cookie('token',token,{maxAge:900000});
+                    req.token = token;
+                    next();
+                  }else{next('access denied');}
+  
+                }).catch(err=>{next(err.message);});
+            }else{next('you should to signup');}
           }).catch(err=>{next(err.message);});
-        }).catch(err=>{next(err.message);});
         break;
       default:
         next('not authorized');
