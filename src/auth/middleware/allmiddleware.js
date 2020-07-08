@@ -14,8 +14,10 @@ module.exports = (capabilities)=>{
         users
           .authenticateToken(inputType)
           .then(validUser=>{
-            users.can(capabilities, {capabilities:validUser.role}).then(booleanVal=>{
+            console.log('validUser bearer',validUser)
+            users.can(capabilities, {capabilities:validUser.capabilities}).then(booleanVal=>{
               if(booleanVal){
+                console.log(booleanVal)
                 req.user = validUser;
                 next();
               }else{next('access denied');}
@@ -28,12 +30,12 @@ module.exports = (capabilities)=>{
         // console.log(user, pass);
         users.valid(user, pass)
           .then((validUser) => {
-            // console.log(validUser);//user obj id, name, 
+            // console.log('validUser in basic', validUser);//user obj id, name, 
             if(validUser){
-              users.can(capabilities, {capabilities:validUser.role})
+              users.can(capabilities, {capabilities:validUser.role})//.role because its from data base
                 .then(booleanVal=>{
                   if(booleanVal){
-                    console.log(booleanVal);
+                    // console.log(booleanVal);
                     let token = users.token(validUser);
                     res.cookie('token',token,{maxAge:900000});
                     req.token = token;

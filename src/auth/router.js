@@ -20,7 +20,7 @@ console.log('router');
 
 router.post('/signup',postSignUpHandler);
 router.post('/signin',basicAuth,postSignInHandler);
-router.get('/users',basicAuth,getAllHandler);
+router.get('/users',getAllHandler);
 router.get('/oauth',oauthMiddleware,signIn);
 
 
