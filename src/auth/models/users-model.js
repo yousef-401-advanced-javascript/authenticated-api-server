@@ -29,7 +29,7 @@ class Models{
     return token;
   }
   async can(capability, role){
-    console.log('capability', capability)
+    console.log('capability', capability);
     console.log('role.capabilities',role);
     try {
       if(this.role[role.capabilities]){

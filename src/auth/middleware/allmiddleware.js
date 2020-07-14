@@ -14,10 +14,10 @@ module.exports = (capabilities)=>{
         users
           .authenticateToken(inputType)
           .then(validUser=>{
-            console.log('validUser bearer',validUser)
+            console.log('validUser bearer',validUser);
             users.can(capabilities, {capabilities:validUser.capabilities}).then(booleanVal=>{
               if(booleanVal){
-                console.log(booleanVal)
+                console.log(booleanVal);
                 req.user = validUser;
                 next();
               }else{next('access denied');}
