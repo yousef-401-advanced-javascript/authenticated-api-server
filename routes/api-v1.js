@@ -14,6 +14,13 @@ router.param('model', getModel);
 // routerAuth.post('/signup',postSignUpHandler);
 // routerAuth.post('/signin',basicAuth,postSignInHandler);
 
+
+// router.get('/:model',authMiddleWare('read'), getAllHandler);
+// router.get('/:model/:id',authMiddleWare('read'), getOneHandler);
+// router.post('/:model',authMiddleWare('create'), postAllHandler);
+// router.put('/:model/:id',authMiddleWare('update'), updateAllHandler);
+// router.delete('/:model/:id',authMiddleWare('delete'), deleteAllHandler);
+
 router.get('/:model', getAllHandler);
 router.get('/:model/:id', getOneHandler);
 router.post('/:model', postAllHandler);
